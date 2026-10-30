@@ -210,10 +210,12 @@ const CHARS = [
   "...hhhhh","..hhhhhh",".hhhhhhh",".hhhhhss",".hhhssss",
   "hhhsssss","hhhssess","hhhsssss","hhhssssS","hhhssssm",
   "hhhhssss","hhhhhsss","hhhhh.ss","hhkkkkkk",".kkkkkkk",".kkkkkkk"]},
- {id:'ph', name:'PH', rows:[
-  "........","....ssss","...sssss","..ssssss","..ssssss",
-  "..sccsss","..sssess","..ssssss","..cssssS","..cccccc",
-  "..ccccmm","..cccccc","...ccccc","....cccc","..xxxxss",".xxxxxxx"]},
+ {id:'ph', name:'PH e LU', rows:[
+  "....hhhh","...hhhhh","..hhhhhh","..hhhhhh","..hhhsss",
+  "..hhsess","..hspsss","...sssmm","....ssss","..wwbbbb",
+  ".swwbbbb","bb..cccc","ss.ccccc","ss.cssss","ss.snnss",
+  "ss.ssess","ss.ssssS","ss.nnnnn","ss.nnnww","bb.ncnnn",
+  "...nnncn","....nncc",".....ccc","..bbbbss",".bwbbbbb",".bwbbbbb"]},
  {id:'ana', name:'Ana', extra:true, rows:[
   "....yyyy","..yyyyyy",".yyyyyyy",".yyyyyss",".yyyssss",
   "yyysssss","yyyskess","yyyspsss","yyyssssS","yyysslll",
@@ -246,11 +248,11 @@ function makeSprite(rows, mirror=false, outline=true){
 }
 CHARS.forEach(c=>c.sprite=makeSprite(c.rows,true));
 const SPR={}; for(const k in ITEMS_ART) SPR[k]=makeSprite(ITEMS_ART[k]);
-function avatarCanvas(ch, px){
-  const c=document.createElement('canvas'); c.width=c.height=px;
+function avatarCanvas(ch, cssPx){
+  const px=cssPx*3, c=document.createElement('canvas'); c.width=c.height=px; c.style.width=c.style.height=cssPx+'px';
   const x=c.getContext('2d'); x.imageSmoothingEnabled=false;
   x.fillStyle='#1b2530'; x.fillRect(0,0,px,px);
-  const s=Math.floor(px/ch.sprite.width); const ox=(px-ch.sprite.width*s)/2, oy=px-ch.sprite.height*s;
+  const sw=ch.sprite.width, sh=ch.sprite.height, s=Math.max(1,Math.floor(Math.min(px/sw,px/sh))); const ox=(px-sw*s)/2, oy=px-sh*s;
   x.drawImage(ch.sprite,ox,oy,ch.sprite.width*s,ch.sprite.height*s);
   return c;
 }
@@ -409,8 +411,8 @@ const pick=a=>a[(Math.random()*a.length)|0];
 function startGame(ch){
   currentChar=ch; store.set('last',ch.id); hideAll();
   $('hudBtns').style.display='flex';
-  const size=ch.sprite.width*PS;
-  G={ch, px:W/2, tx:W/2, size, lives:3, score:0, coins:0, t:0, spawn:0.6, items:[], floats:[], parts:[],
+  const k=PS*Math.min(1,24/ch.sprite.height), size=Math.round(ch.sprite.width*k), hgt=Math.round(ch.sprite.height*k);
+  G={ch, px:W/2, tx:W/2, size, hgt, lives:3, score:0, coins:0, t:0, spawn:0.6, items:[], floats:[], parts:[],
      streak:0, mult:1, inv:0, shake:0, flash:0, flashC:'255,60,60', hits:0, best:store.get('best_'+ch.id,0), hint:3, tilt:0};
   floatText('Servidor fora do ar. Boa sorte.',W/2,H*0.4,'#4fd1ff',2.2);
   running=true; paused=false; last=performance.now(); cancelAnimationFrame(rafId); rafId=requestAnimationFrame(loop);
@@ -441,7 +443,7 @@ function spawnItem(){
   G.items.push(it);
 }
 
-function playerBox(){const s=G.size;const py=H-s-Math.max(28,H*0.05);return{x:G.px-s/2,y:py,w:s,h:s}}
+function playerBox(){const s=G.size,h=G.hgt;const py=H-h-Math.max(28,H*0.05);return{x:G.px-s/2,y:py,w:s,h}}
 
 function update(dt){
   G.t+=dt; G.hint-=dt;
