@@ -202,7 +202,8 @@ const PAL = {
   g:'#3a3a3a', w:'#ffffff', W:'#cfd6dc', e:'#1d1d1d', m:'#8e3b31', l:'#e0607a', L:'#b23a58',
   G:'#9fb7a2', b:'#1c1c1c', B:'#0b0b0b', p:'#f0a0a0', c:'#8a8a8a', C:'#bdbdbd',
   u:'#3c6fb0', x:'#2b3a55', q:'#c2387a', o:'#e8c040', O:'#a8740e', z:'#ffd84d',
-  f:'#4fb36a', F:'#22713a', v:'#32bcad', V:'#1d7f75', a:'#4fd1ff', d:'#6b4226', j:'#2f6e3a'
+  f:'#4fb36a', F:'#22713a', v:'#32bcad', V:'#1d7f75', a:'#4fd1ff', d:'#6b4226', j:'#2f6e3a',
+  K:'#d61f2c', M:'#e2a882', Q:'#b81c34', D:'#4a0f1a', i:'#7a3e22', I:'#b8653a'
 };
 // Rows with 8 chars are mirrored into 16.
 const CHARS = [
@@ -211,17 +212,17 @@ const CHARS = [
   "..sggggs","..sgsegs","..sggggs","..sssssS","..snnnnn",
   "..nnnnnm","..nnnnnn","...nnnnn",".....sss","..GGGGGs",".GGGGGGG"]},
  {id:'camila', name:'Camila', rows:[
-  "....wwww","...wwrrr","..wwrrrr","..wrrsss","..wrssss",
-  ".wrsssss",".wrssess",".wrspsss",".wrssssm",".wrrssss",
-  "wrrrrsss","wrrrr.ss","wrssssss","wwwwwwww",".wwwwwww",".wwwwwww"]},
+  "....KKKK","...KKKKK","..KKKKKK","..KKKKMM","..KKMMMM",
+  ".KKMMMMM",".KKMMeMM",".KKMMMMM",".KKMpMMM",".KKMMMww",
+  ".KKKMMMM","KKKKKMMM","KKKKKDDD","KQQQQDDD","DDDDDDDD","QQQQQQQQ"]},
  {id:'rigoni', name:'Rigoni', rows:[
-  "....hhhh","...hhhhh","..hhhhhh","..hsssss","..ssssss",
-  "..BBBBBB","..sBWBBs","..ssssss","..sssssS","..nnnnnn",
-  "..nnnnmm","..nnnnnn","...nnnnn",".....sss","..uuuuus",".uuuuuuu"]},
+  "...iiiii","..iiiiii","..iiiiii","..isssss","..ssssss",
+  "..siisss","..sssess","..ssssss","..IssssS","..IIIIII",
+  "..IIIwww","..IIIIII","...IIIII",".....sss","..WWWWWs",".WWWWWWW"]},
  {id:'botelho', name:'Botelho', rows:[
   "........","....hhhh","...hhhhh","..hhhhhh","..tttttt",
-  "..tthhtt","..tttett","..tttttT","..nttttt","..nnnnww",
-  "..nnnnnn","...nnnnn",".....ttt","..bbbbbb",".tttttTT",".bbbbbbb"]},
+  "..tthhtt","..tttett","..tttttT","..tttttt","..nnnnmm",
+  "..nnnnnn","...nnnnn",".....ttt","..txxxxx",".ttxxxxx",".ttxxxxx"]},
  {id:'cabelo', name:'Cabelo', rows:[
   "...hhhhh","..hhhhhh",".hhhhhhh",".hhhhhss",".hhhssss",
   "hhhsssss","hhhssess","hhhsssss","hhhssssS","hhhssssm",
@@ -275,7 +276,7 @@ const MIRRORED_ART={
   lu:["....hhhh","...hhhhh","..hhhhhh","..hhhhhh","..hhhsss","..hhsess","..hspsss","...sssmm","....ssss","..wwbbbb",".swwbbbb","...bbbbb",".....s..",".....b.."],
   phSolo:["........","....cccc","...ccccc","...cssss","...snnss","...ssess","...ssssS","...nnnnn","...nnnww","...ncnnn","...nnncn","....nncc",".....ccc","..bbbbss",".bwbbbbb",".bwbbbbb"],
   baby:["..q.h","..hhh",".hhhh",".hsss",".sess",".spss",".sssm","..sss",".qqqq","sqqqq",".qqqq","...s."],
-  bro:["bb....","bb.bbb","..bbbb",".yYyyy","yYssss","yssess","Ysssss",".ssssm","..ssss",".uuuuu","suuuuu",".uuuuu","..xx.x","..bb.."],
+  bro:["..yYyy",".yyyYy","yYyyyy","yyyYss","yssess","Ysssss",".ssssm","..ssss",".uuuuu","suuuuu",".uuuuu","..xx.x","..bb.."],
   racket:["..uu",".uuu","uuku","uuuu","ukuu","uuuu","uuku",".uuu","..uu","...d","...d","...b"],
 };
 for(const k in MIRRORED_ART) SPR[k]=makeSprite(MIRRORED_ART[k],true);
@@ -442,7 +443,7 @@ const WP_DUR=8, HO_DUR=6, LVL2=30;
 const WEAPONS={
   bruno:{name:'LEQUE',icon:'fan',msg:'LEQUE ABERTO! Vento a favor do saldo.'},
   camila:{name:'FOICE+MARTELO',icon:'sickle',msg:'FOICE E MARTELO! Dose dupla.'},
-  rigoni:{name:'AJUDANTE',icon:'baby',msg:'A pequena veio ajudar o papai!'},
+  rigoni:{name:'AJUDANTE',icon:'baby',msg:'A pequena vai escalar o servidor!'},
   botelho:{name:'RAQUETE',icon:'racket',msg:'RAQUETE! Smash nos problemas.'},
   cabelo:{name:'GUITARRA',icon:'guitar',msg:'SOLO DE GUITARRA!'},
   ph:{name:'LU',icon:'lu',msg:'LU, SOBE NO SERVIDOR!'},
@@ -530,11 +531,11 @@ function weaponStart(){
   const pb=playerBox();
   if(G.ch.id==='ph'&&!G.lu)G.lu={x:G.px,y:pb.y+G.k*7,state:'up'};
   else if(G.ch.id==='ph')G.lu.state='up';
-  if(G.ch.id==='rigoni'){ if(!G.baby)G.baby={x:fieldX-30,state:'in',walk:0}; else G.baby.state='roam'; G.bro=null; }
+  if(G.ch.id==='rigoni'){ if(!G.baby)G.baby={x:fieldX-30,y:H-floorPad(),state:'in',walk:0}; else G.baby.state='up'; G.bro=null; }
 }
 function weaponEnd(){
   if(G.lu){G.lu.state='back'}
-  if(G.baby){G.baby.state='wait'; G.bro={x:fieldX+fieldW+30,state:'in',walk:0}; floatText('O irmão veio buscar a pequena!',W/2,H*0.45,'#4fd1ff',1.8,14)}
+  if(G.baby){G.baby.state='down'; G.bro={x:fieldX+fieldW+30,state:'in',walk:0}; floatText('O irmão veio buscar a pequena!',W/2,H*0.45,'#4fd1ff',1.8,14)}
 }
 function homeStart(){
   G.ho=HO_DUR; G.homes++; G.flash=.4; G.flashC='255,176,112'; sfx.wifi();
@@ -631,13 +632,20 @@ function update(dt){
   // Baby + brother (Rigoni)
   const fy=H-floorPad();
   if(G.baby){
-    const Bb=G.baby,s=SPR.baby; Bb.w=s.width*G.k; Bb.h=s.height*G.k; Bb.y=fy-Bb.h/2; Bb.walk+=dt;
-    if(Bb.state==='in'){Bb.x+=220*dt; if(Bb.x>=fieldX+fieldW*.25)Bb.state='roam'}
-    else if(Bb.state==='roam'){const b=nearestGood(()=>true,it=>-it.y);const tx=b?b.x:Bb.x;Bb.x+=Math.sign(tx-Bb.x)*Math.min(Math.abs(tx-Bb.x),250*dt);Bb.x=Math.max(fieldX+Bb.w/2,Math.min(fieldX+fieldW-Bb.w/2,Bb.x))}
-    else if(Bb.state==='out'){Bb.x+=190*dt}
-    if(Bb.state==='roam'||Bb.state==='in'){const B={x:Bb.x-Bb.w/2,y:Bb.y-Bb.h/2-G.k*4,w:Bb.w,h:Bb.h+G.k*4};for(const it of G.items){if(!it.dead&&it.kind==='good'&&!it.special&&hit(it,B)){it.dead=true;catchGood(it,true)}}}
+    const Bb=G.baby,s=SPR.baby; Bb.w=s.width*G.k; Bb.h=s.height*G.k; Bb.walk+=dt; const groundY=fy-Bb.h/2;
+    if(Bb.state==='in'){Bb.y=groundY;Bb.x+=240*dt; if(Bb.x>=G.px-pb.w){Bb.state='up';floatText('Escalando o rack!',Bb.x,Bb.y-40,'#ffd84d',1,13)}}
+    else if(Bb.state==='up'){moveTo(Bb,Bb.x,H*.42,300,520,dt); if(Bb.y<=H*.42+1)Bb.state='roam'}
+    else if(Bb.state==='roam'){
+      const b=nearestGood(it=>it.y<Bb.y+60,it=>Math.abs(it.x-Bb.x)+Math.abs(it.y-Bb.y)*.6);
+      const tx=b?b.x:fieldX+fieldW/2, ty=b?Math.max(H*.2,Math.min(H*.6,b.y)):H*.42;
+      moveTo(Bb,tx,ty,460,300,dt); Bb.x=Math.max(fieldX+Bb.w/2,Math.min(fieldX+fieldW-Bb.w/2,Bb.x));
+    }
+    else if(Bb.state==='down'){moveTo(Bb,Bb.x,groundY,0,700,dt); if(Bb.y>=groundY-1){Bb.y=groundY;Bb.state='wait'}}
+    else if(Bb.state==='wait'){Bb.y=groundY}
+    else if(Bb.state==='out'){Bb.y=groundY;Bb.x+=190*dt}
+    if(Bb.state==='in'||Bb.state==='up'||Bb.state==='roam'){const B={x:Bb.x-Bb.w/2,y:Bb.y-Bb.h/2,w:Bb.w,h:Bb.h};for(const it of G.items){if(!it.dead&&it.kind==='good'&&!it.special&&hit(it,B)){it.dead=true;catchGood(it,true)}}}
     if(G.bro){const R=G.bro,rs=SPR.bro;R.w=rs.width*G.k;R.h=rs.height*G.k;R.y=fy-R.h/2;R.walk+=dt;
-      if(R.state==='in'){R.x-=230*dt; if(R.x<=Bb.x+Bb.w*.5+R.w*.5){R.state='out';Bb.state='out';floatText('Bora, maninha!',R.x,R.y-R.h,'#fff',1.2,13)}}
+      if(R.state==='in'){R.x=Math.max(R.x-230*dt,Bb.x+Bb.w*.5+R.w*.5); if(Bb.state==='wait'&&R.x<=Bb.x+Bb.w*.5+R.w*.5+1){R.state='out';Bb.state='out';floatText('Bora, maninha!',R.x,R.y-R.h,'#fff',1.2,13)}}
       else R.x=Bb.x+Bb.w*.5+R.w*.45;
     }
     if(Bb.state==='out'&&Bb.x>fieldX+fieldW+80){G.baby=null;G.bro=null}
@@ -710,7 +718,7 @@ function draw(now){
   }
   for(const p of G.parts){ctx.globalAlpha=Math.max(0,p.life/.6);ctx.fillStyle=p.color;ctx.fillRect(p.x,p.y,U,U)}ctx.globalAlpha=1;
   // helpers
-  if(G.baby){const b=G.baby;drawSpr(SPR.baby,b.x,b.y-Math.abs(Math.sin(b.walk*12))*3,G.k)}
+  if(G.baby){const b=G.baby,air=b.state==='up'||b.state==='roam'||b.state==='down';ctx.save();if(air){ctx.shadowColor='rgba(255,216,77,.8)';ctx.shadowBlur=12}drawSpr(SPR.baby,b.x,b.y-(air?Math.sin(tt*14)*2:Math.abs(Math.sin(b.walk*12))*3),G.k);ctx.restore()}
   if(G.bro){const r=G.bro;drawSpr(SPR.bro,r.x,r.y-Math.abs(Math.sin(r.walk*10))*3,G.k)}
   // player
   if(!(G.inv>0&&Math.floor(G.inv*12)%2===0)){
