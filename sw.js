@@ -1,5 +1,5 @@
 // Servidor Caiu! — cache offline
-const CACHE = 'servidor-caiu-v2';
+const CACHE = 'servidor-caiu-v4';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png'];
 
 self.addEventListener('install', e => {
